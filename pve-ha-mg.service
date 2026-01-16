@@ -1,0 +1,20 @@
+[Unit]
+Description=PVE Cluster HA Manager Daemon
+ConditionPathExists=/usr/sbin/pve-ha-mg
+Wants=pve-cluster.service
+Wants=watchdog-mux.service
+Wants=pvedaemon.service
+After=pve-cluster.service
+After=corosync.service
+After=pvedaemon.service
+After=watchdog-mux.service
+After=syslog.service
+
+[Service]
+ExecStart=/usr/sbin/pve-ha-mg
+Restart=always
+RestartSec=5
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
